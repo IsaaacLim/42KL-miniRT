@@ -1,0 +1,8 @@
+*.o
+miniRT
+
+# mlx
+mlx/libmlx.dylib
+mlx/*.swiftdoc
+mlx/*.swiftmodule
+mlx/*.swiftsourceinfo
