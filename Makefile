@@ -1,14 +1,24 @@
 NAME		=	miniRT
 
-SRCS		=	main.c
+SRCS_DIR	=	./srcs/
+SRCS_LST	=	exit.c	ft_control_hook.c	main.c
+SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST))
 
 OBJS		=	$(SRCS:.c=.o)
+
+HDRS_DIR	=	./includes/
+HDRS_LST	=	miniRT.h
+HDRS		=	$(addprefix $(HDRS_DIR), $(HDRS_LST))
 
 MLX_DIR		=	./mlx/
 MLX			=	$(MLX_DIR)libmlx.dylib
 MLX_LIB		=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 
-INCLUDES	=	-I $(MLX_DIR)
+LIBFT_DIR	=	./libft/
+# LIBFT		=	$(LIBFT_DIR)libft.a
+LIBFT_HDRS	=	$(LIBFT_DIR)includes/
+
+INCLUDES	=	-I $(HDRS_DIR) -I $(MLX_DIR)
 
 CC			=	gcc
 CFLAGS		=	-g -Wall -Wextra -Werror
@@ -18,7 +28,7 @@ all : $(MLX) $(NAME)
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(LIBFT) -o $@
 
-%.o : %.c
+$(SRCS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(MLX) :
